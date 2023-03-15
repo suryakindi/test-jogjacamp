@@ -29,7 +29,7 @@
         </div>
         <div class="form-group" style="margin-left: 20px; margin-top:10px">
             <label for="namacategory">Publish</label>
-            <input type="text" class="form-control" id="namacategory" placeholder="0 / 1" name="is_publish" style="width:250px">
+            <input type="number" class="form-control" id="namacategory" placeholder="0 / 1" name="is_publish" style="width:250px">
           </div>
         <button type="submit" class="btn btn-primary" style="margin-left:20px">Submit</button>
         

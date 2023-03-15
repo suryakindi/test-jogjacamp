@@ -56,7 +56,7 @@ class CategoryController extends Controller
             $request->session()->flash('errorpublish');
             return redirect('/listdata/tambah-category');
         }
-        $newdata = $request->nama_category;
+        $newdata->name = $request->nama_category;
         $newdata->save();
         $request->session()->flash('suksestambahdata');
         return redirect('/listdata');
