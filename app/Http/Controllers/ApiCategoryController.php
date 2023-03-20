@@ -54,7 +54,7 @@ class ApiCategoryController extends Controller
        ]);
        return response()->json([
         'data'=>$listdata,
-       ], 200);
+       ], 201);
     }
 
     /**

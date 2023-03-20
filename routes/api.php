@@ -16,9 +16,9 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
-Route::get('/listdata', 'ApiCategoryController@index');
-Route::post('/listdata/tambah-category', 'ApiCategoryController@store');
-Route::get('/listdata/show/{id}', 'ApiCategoryController@show');
-Route::post('/listdata/edit/{id}', 'ApiCategoryController@update');
-Route::get('/listdata/hapus/{id}', 'ApiCategoryController@destroy');
+Route::get('/listdata', 'ApiCategoryController@index')->name('api-showallcategory');
+Route::post('/listdata/tambah-category', 'ApiCategoryController@store')->name('api-addcategory');
+Route::get('/listdata/show/{id}', 'ApiCategoryController@show')->name('api-showdetailcategory');
+Route::post('/listdata/edit/{id}', 'ApiCategoryController@update')->name('api-postcategory');
+Route::get('/listdata/hapus/{id}', 'ApiCategoryController@destroy')->name('api-deletecategory');
 
