@@ -16,7 +16,7 @@
             alert('Data Berhasil Dihapus')
         </script>
         @endif
-       <a href="/listdata/tambah-category"> <button class="btn btn-info btn-sm" style=" margin-top:10px; margin-left:10px">Tambah Category</button></a>
+       <a href="{{route('tambah-category')}}"> <button class="btn btn-info btn-sm" style=" margin-top:10px; margin-left:10px">Tambah Category</button></a>
         <br><br>
         <table id="example" class="table table-striped table-bordered" style="width:100%">
             <thead>
@@ -46,8 +46,8 @@
                     @endif
                     <td>{{$itemcategory->created_at}} ({{$itemcategory->created_at->diffForHumans()}})</td>
                     <td>
-                        <a href="/listdata/edit/{{$itemcategory->id}}"><button class="btn btn-warning btn-sm">Edit</button></a>
-                        <a href="/listdata/hapus/{{$itemcategory->id}}" onclick="return confirm('Yakin Hapus Data?')"><button class="btn btn-danger btn-sm">Hapus</button></a>
+                        <a href="{{route('edit-data', ['id'=>$itemcategory->id])}}"><button class="btn btn-warning btn-sm">Edit</button></a>
+                        <a href="{{route('hapus-data', ['id'=>$itemcategory->id])}}" onclick="return confirm('Yakin Hapus Data?')"><button class="btn btn-danger btn-sm">Hapus</button></a>
                     </td>
                 </tr>
                 @endforeach
@@ -63,7 +63,7 @@
                 </tr>
             </tfoot>
         </table>
-
+<div class="flex" style="margin-left:1005px ">{{$listdatacategory->links()}}</div>
         <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
         <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
         <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap4.min.js"></script>

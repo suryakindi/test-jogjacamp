@@ -14,9 +14,9 @@
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('/listdata', 'CategoryController@index');
-Route::get('/listdata/tambah-category', 'CategoryController@create');
+Route::get('/listdata', 'CategoryController@index')->name('list-data');
+Route::get('/listdata/tambah-category', 'CategoryController@create')->name('tambah-category');
 Route::post('/listdata/tambah-category', 'CategoryController@store');
 Route::get('/listdata/edit/{id}', 'CategoryController@edit');
-Route::post('/listdata/edit/{id}', 'CategoryController@update');
-Route::get('/listdata/hapus/{id}', 'CategoryController@destroy');
+Route::post('/listdata/edit/{id}', 'CategoryController@update')->name('edit-data');
+Route::get('/listdata/hapus/{id}', 'CategoryController@destroy')->name('hapus-data');

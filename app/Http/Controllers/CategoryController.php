@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 use App\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-
-
+use Illuminate\Support\Facades\Mail;
+Use App\User;
 
 class CategoryController extends Controller
 {
@@ -16,7 +16,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $listdatacategory = Category::all();
+        $listdatacategory = Category::paginate(5);
         return view('listdata',['listdatacategory'=>$listdatacategory]);
     }
 
@@ -58,8 +58,19 @@ class CategoryController extends Controller
         }
         $newdata->name = $request->nama_category;
         $newdata->save();
+        $array = ['name'=>$request->nama_category];
+        $users = User::all();
+        foreach($users as $user){
+            $email[]=$user->email;
+        }
+        foreach($email as $send){
+            Mail::send('emails.CategoryCreated',['array'=>$array], function($message) use($send){
+                $message->to($send)->subject('CategoryCreated');
+            });
+        }
+       
         $request->session()->flash('suksestambahdata');
-        return redirect('/listdata');
+        return redirect(route('list-data'));
     }
 
     /**
@@ -104,11 +115,26 @@ class CategoryController extends Controller
             return redirect('/listdata/edit/'.$id);
         }
         $listdata = Category::find($id);
+        $name = $listdata->name;
         $listdata->name = $request->nama_category;
         $listdata->is_publish = $request->is_publish;
         $listdata->save();
+        $array = [
+            'namebefore'=>$name,
+            'newname'=>$request->nama_category,
+            'time'=>date('d/D-M-Y'),
+        ];
+        $users = User::all();
+        foreach($users as $user){
+            $email[]=$user->email;
+        }
+        foreach($email as $send){
+            Mail::send('emails.EditSuccesfully',['array'=>$array], function($message) use($send){
+                $message->to($send)->subject('EditSuccesfully');
+            });
+        }
         $request->session()->flash('sukseseditdata');
-        return redirect('/listdata/edit/'.$id);
+        return redirect(route('edit-data', ['id'=>$id]));
 
     }
 
@@ -121,8 +147,22 @@ class CategoryController extends Controller
     public function destroy(Request $request,$id)
     {
         $listdata = Category::find($id);
+        $name = $listdata->name;
         $listdata->delete();
+        $array = [
+            'name'=>$name,
+            'time'=>date('d/D-M-Y'),
+        ];
+        $users = User::all();
+        foreach($users as $user){
+            $email[]=$user->email;
+        }
+        foreach($email as $send){
+            Mail::send('emails.DeleteSuccesfully',['array'=>$array], function($message) use($send){
+                $message->to($send)->subject('DeleteSuccesfully');
+            });
+        }
         $request->session()->flash('suksesdeletdata');
-        return redirect('/listdata');
+        return redirect(route('list-data'));
     }
 }
